@@ -20,3 +20,11 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+# Ambientes virtuais
+.venv/
+venv/
+env/
+# Pastas de relatório de testes
+.pytest_cache/
+.coverage
+htmlcov/

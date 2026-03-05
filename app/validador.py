@@ -1,5 +1,5 @@
 import re
-from servico_correios import ServicoCorreios
+from app.servico_correios import ServicoCorreios
 
 class Validador:
 

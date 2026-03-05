@@ -12,11 +12,11 @@ class TestValidador:
     PESOS_NPJ = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
 
     # Testes de validação de CEP:
-    """
     @pytest.mark.parametrize("cep", ["12345-678", "12345678"])
-    def test_validar_cep_valido(self, validador, cep):
+    def test_validar_cep_valido(self, validador, mocker, cep):
+        mocker.patch.object(validador.servico_correios, 'valida_cep_api', return_value=True)
         assert validador.validar_cep(cep) is True
-    """
+
     @pytest.mark.parametrize("cep", ["1234-567", "abcdefghi", "1234567", "123456789"])
     def test_validar_cep_invalido(self, validador, cep):
         assert validador.validar_cep(cep) is False
@@ -53,7 +53,7 @@ class TestValidador:
 
     @pytest.mark.parametrize("cpf", ["123a567b900", "zyxwvutsrqp"])
     def test_cpf_letras(self, validador, cpf):
-        validador.validar_cpf(cpf) is False
+        assert validador.validar_cpf(cpf) is False
 
     # Testes de validação de CNPJ:
     @pytest.mark.parametrize("cnpj", ["04.252.011/0001-10", "04252011000110"])
@@ -70,7 +70,7 @@ class TestValidador:
 
     @pytest.mark.parametrize("cnpj", ["0a.2b2.c11/0001-1d", "abcdefghijklmn"])
     def test_cnpj_letras(self, validador, cnpj):
-        validador.validar_cnpj(cnpj) is False
+        assert validador.validar_cnpj(cnpj) is False
 
     # Testes de integração com serviço externo - API
     def test_validar_cep_chamada_api_sucesso(self, validador, mocker):
